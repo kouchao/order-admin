@@ -22,6 +22,11 @@ export default new Router({
       path: '/food-add',
       name: 'food-add',
       component: foodAdd
+    },
+    {
+      path: '/food-edit/:id',
+      name: 'food-edit',
+      component: foodAdd
     }
   ]
 })
