@@ -8,10 +8,10 @@
         <el-input v-model="form.price"></el-input>
       </el-form-item>
       <el-form-item label="现价">
-        <el-input v-model="form.oldPrice"></el-input>
+        <el-input v-model="form.old_price"></el-input>
       </el-form-item>
       <el-form-item label="分类">
-        <el-select v-model="form.categoryId" placeholder="请选择分类">
+        <el-select v-model="form.category_id" placeholder="请选择分类">
           <el-option v-for="item of categoryList" :label="item.name" :value="item.id"></el-option>
         </el-select>
       </el-form-item>
@@ -33,9 +33,9 @@
         form: {
           name: '',
           price: '',
-          oldPrice: '',
+          old_price: '',
           describe: '',
-          categoryId: '',
+          category_id: '',
           image: ''
         },
         categoryList: [],
@@ -43,6 +43,9 @@
       }
     },
     created() {
+      if(this.$route.params.id){
+        this.getFood()
+      }
       this.getCategory()
     },
     methods: {
@@ -67,22 +70,20 @@
           _this.loading = false
         })
       },
-      getFood(page) {
+      getFood() {
         var _this = this;
         this.loading = true
         let url = `${this.$baseUrl}/food`;
 
         let params = {
-          page: page,
-          size: 10
+          id: this.$route.params.id
         }
 
         this.$ajax(url, {
           params: params
         }).then(function (res) {
           if (res.data.code == 0) {
-            _this.foodList = res.data.dataList
-            _this.total = res.data.count
+            _this.form = res.data.data
           }
         }).finally(function () {
           _this.loading = false

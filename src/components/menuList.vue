@@ -7,7 +7,7 @@
         <i class="el-icon-location"></i>
         <span>{{submenu.name}}</span>
       </template>
-      <el-menu-item v-for="(item, index2) of submenu.child" :index="item.path">{{item.name}}</el-menu-item>
+      <el-menu-item v-for="(item, index2) of submenu.child" :route="item.path" :index="index + '-' + index2">{{item.name}}</el-menu-item>
     </el-submenu>
   </el-menu>
 </template>
@@ -21,10 +21,14 @@
           name: '菜品管理',
           child: [{
             name: '菜品列表',
-            path: 'food-list'
+            path: {
+              name: 'food-list'
+            }
           }, {
             name: '添加菜品',
-            path: 'food-add'
+            path: {
+              name: 'food-add'
+            }
           }]
         }, {
           name: '分类管理',
