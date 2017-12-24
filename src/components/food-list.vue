@@ -28,7 +28,7 @@
         <template slot-scope="scope">
           <el-button @click="getInfo(scope.row.id)" type="text" size="small">查看</el-button>
           <el-button @click="edit(scope.row.id)" type="text" size="small">编辑</el-button>
-          <el-button type="text" size="small">删除</el-button>
+          <el-button @click="del(scope.row.id)" type="text" size="small">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -91,6 +91,38 @@
             id: id
           }
         })
+      },
+
+      del(id) {
+        var _this = this;
+        this.$confirm('确定删除吗？', '提示').then(function (res) {
+
+          _this.loading = true
+          let url = `${_this.$baseUrl}/food`;
+
+          let params = {
+            id: id
+          }
+          _this.$ajax.delete(url, {
+            params: params
+          }).then(function (res) {
+            if (res.data.code == 0) {
+              _this.$alert('删除成功', '提示', {
+                confirmButtonText: '确定'
+              });
+              _this.getFood(0)
+            } else {
+              _this.$alert(res.data.message, '提示', {
+                confirmButtonText: '确定'
+              });
+            }
+          }).finally(function () {
+            _this.loading = false
+          })
+        }).catch(function (a) {
+
+        });
+
       }
     }
 

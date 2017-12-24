@@ -43,34 +43,19 @@
       }
     },
     created() {
-      if(this.$route.params.id){
+      if (this.$route.params.id) {
         this.getFood()
       }
       this.getCategory()
     },
     methods: {
-      saveFood(){
-        var _this = this;
-        this.loading = true
-        let url = `${this.$baseUrl}/food`;
+      saveFood() {
 
-        let data = this.form
-
-        let ajax = this.$ajax.post;
-
-        this.$ajax.post(url, data).then(function (res) {
-          if (res.data.code == 0) {
-            _this.$alert('添加成功', '提示', {
-              confirmButtonText: '确定'
-            });
-          }else {
-            _this.$alert(res.data.message, '提示', {
-              confirmButtonText: '确定'
-            });
-          }
-        }).finally(function () {
-          _this.loading = false
-        })
+        if (this.$route.params.id) {
+          this.isEdit()
+        } else {
+          this.isAdd()
+        }
       },
       getFood() {
         var _this = this;
@@ -106,6 +91,48 @@
           if (res.data.code == 0) {
             _this.categoryList = res.data.dataList
           }
+        })
+      },
+      isAdd: function () {
+        var _this = this;
+        this.loading = true
+        let url = `${this.$baseUrl}/food`;
+
+        let data = this.form
+
+        this.$ajax.post(url, data).then(function (res) {
+          if (res.data.code == 0) {
+            _this.$alert('添加成功', '提示', {
+              confirmButtonText: '确定'
+            });
+          } else {
+            _this.$alert(res.data.message, '提示', {
+              confirmButtonText: '确定'
+            });
+          }
+        }).finally(function () {
+          _this.loading = false
+        })
+      },
+      isEdit: function () {
+        var _this = this;
+        this.loading = true
+        let url = `${this.$baseUrl}/food`;
+
+        let data = this.form
+
+        this.$ajax.put(url, data).then(function (res) {
+          if (res.data.code == 0) {
+            _this.$alert('修改成功', '提示', {
+              confirmButtonText: '确定'
+            });
+          } else {
+            _this.$alert(res.data.message, '提示', {
+              confirmButtonText: '确定'
+            });
+          }
+        }).finally(function () {
+          _this.loading = false
         })
       }
     }
