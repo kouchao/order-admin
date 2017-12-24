@@ -27,7 +27,7 @@
         label="操作">
         <template slot-scope="scope">
           <el-button @click="getInfo(scope.row.id)" type="text" size="small">查看</el-button>
-          <el-button type="text" size="small">编辑</el-button>
+          <el-button @click="edit(scope.row.id)" type="text" size="small">编辑</el-button>
           <el-button type="text" size="small">删除</el-button>
         </template>
       </el-table-column>
@@ -82,6 +82,15 @@
 
       paginationChange(page) {
         this.getFood(page - 1)
+      },
+
+      edit(id) {
+        this.$router.push({
+          name: 'food-edit',
+          params: {
+            id: id
+          }
+        })
       }
     }
 

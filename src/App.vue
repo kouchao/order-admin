@@ -18,7 +18,7 @@
 </template>
 
 <script>
-  import menuList from './components/menuList'
+  import menuList from './components/menu-list'
   export default {
     name: 'app',
     components: {

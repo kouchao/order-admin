@@ -19,7 +19,7 @@
         <el-input type="textarea" v-model="form.describe"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="addFood" :loading="loading">添加</el-button>
+        <el-button type="primary" @click="saveFood" :loading="loading">添加</el-button>
       </el-form-item>
     </el-form>
 
@@ -49,12 +49,14 @@
       this.getCategory()
     },
     methods: {
-      addFood(){
+      saveFood(){
         var _this = this;
         this.loading = true
         let url = `${this.$baseUrl}/food`;
 
         let data = this.form
+
+        let ajax = this.$ajax.post;
 
         this.$ajax.post(url, data).then(function (res) {
           if (res.data.code == 0) {
