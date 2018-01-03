@@ -30,7 +30,7 @@
 
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="saveFood($event)" :loading="loading">添加</el-button>
+        <el-button type="primary" @click="saveFood($event)" :loading="loading">{{$route.params.id ? '保存' : '添加'}}</el-button>
       </el-form-item>
     </el-form>
 
@@ -88,6 +88,7 @@
         }).then(function (res) {
           if (res.data.code == 0) {
             _this.form = res.data.data
+            _this.imageUrl = 'http://yun.jskou.com/毕业设计/' + _this.form.image
           }
         }).finally(function () {
           _this.loading = false
@@ -144,6 +145,8 @@
         let url = `${this.$baseUrl}/food`;
 
         let formData = new FormData();
+        formData.append('id', this.$route.params.id);
+
         formData.append('name', this.form.name);
         formData.append('price', this.form.price);
         formData.append('old_price', this.form.old_price);
@@ -167,6 +170,7 @@
         })
       },
       beforeAvatarUpload(file) {
+        let _this = this
         const isJPG = file.type === 'image/jpeg';
         const isPNG = file.type === 'image/png';
         const isLt2M = file.size / 1024 / 1024 < 2;
@@ -174,13 +178,24 @@
         if (!isJPG && !isPNG) {
           this.$message.error('上传头像图片只能是 JPG 或者 PNG 格式!');
         }
+
         if (!isLt2M) {
           this.$message.error('上传头像图片大小不能超过 2MB!');
         }
         // this.imageUrl = URL.createObjectURL(file.raw);
 
+        var reader = new FileReader()
+
+        reader.onload = function() {
+          _this.imageUrl = this.result
+        }
+
+        reader.readAsDataURL(file);
+
+
+
         this.form.image = file;
-        return isJPG && isLt2M;
+        return false
       }
 
     }
