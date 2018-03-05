@@ -7,7 +7,9 @@
         <i class="el-icon-location"></i>
         <span>{{submenu.name}}</span>
       </template>
-      <el-menu-item v-for="(item, index2) of submenu.child" :route="item.path" :index="index + '-' + index2">{{item.name}}</el-menu-item>
+      <el-menu-item v-for="(item, index2) of submenu.child" :route="item.path" :index="index + '-' + index2">
+        {{item.name}}
+      </el-menu-item>
     </el-submenu>
   </el-menu>
 </template>
@@ -34,7 +36,10 @@
           name: '分类管理',
           child: [{
             name: '分类列表',
-            path: '123'
+            path: 'category-list'
+          }, {
+            name: '添加分类',
+            path: 'category-add'
           }]
         }]
       }
