@@ -12,7 +12,8 @@ import foodAdd from '@/components/food/food-add'
 import categoryAdd from '@/components/category/category-add'
 import categoryList from '@/components/category/category-list'
 
-
+import tableAdd from '@/components/table/table-add'
+import tableList from '@/components/table/table-list'
 
 
 Vue.use(Router)
@@ -53,6 +54,21 @@ export default new Router({
       path: '/category-edit/:id',
       name: 'category-edit',
       component: categoryAdd
+    },
+    {
+      path: '/table-list',
+      name: 'table-list',
+      component: tableList
+    },
+    {
+      path: '/table-add',
+      name: 'table-add',
+      component: tableAdd
+    },
+    {
+      path: '/table-edit/:id',
+      name: 'table-edit',
+      component: tableAdd
     }
   ]
 })

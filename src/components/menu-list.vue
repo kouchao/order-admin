@@ -41,6 +41,15 @@
             name: '添加分类',
             path: 'category-add'
           }]
+        }, {
+          name: '桌子管理',
+          child: [{
+            name: '桌子列表',
+            path: 'table-list'
+          }, {
+            name: '添加桌子',
+            path: 'table-add'
+          }]
         }]
       }
     }
