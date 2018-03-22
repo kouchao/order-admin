@@ -88,7 +88,7 @@
         }).then(function (res) {
           if (res.data.code == 0) {
             _this.form = res.data.data
-            _this.imageUrl = 'http://yun.jskou.com/毕业设计/' + _this.form.image
+            _this.imageUrl = 'http://yun.kouchao.top/毕业设计/' + _this.form.image
           }
         }).finally(function () {
           _this.loading = false
