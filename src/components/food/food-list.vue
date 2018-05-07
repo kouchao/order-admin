@@ -27,6 +27,18 @@
         label="操作">
         <template slot-scope="scope">
           <el-button @click="getInfo(scope.row.id)" type="text" size="small">查看</el-button>
+          <el-popover
+            class="el-button el-button--text el-button--small"
+            placement="top"
+            width="160"
+            v-model="scope.row.visible">
+            <el-input v-model="priority" placeholder="请输入优先级"></el-input>
+            <div style="text-align: right; margin: 0">
+              <el-button size="mini" type="text" @click="scope.row.visible = false">取消</el-button>
+              <el-button type="primary" size="mini" @click="recommend(scope.row.id)">确定</el-button>
+            </div>
+            <el-button slot="reference" type="text" size="small">推荐</el-button>
+          </el-popover>
           <el-button @click="edit(scope.row.id)" type="text" size="small">编辑</el-button>
           <el-button @click="del(scope.row.id)" type="text" size="small">删除</el-button>
         </template>
@@ -51,7 +63,8 @@
       return {
         foodList: [],
         loading: false,
-        total: 0
+        total: 0,
+        priority: ''
       }
     },
     created() {
@@ -59,7 +72,6 @@
     },
     methods: {
       getFood(page) {
-        var _this = this;
         this.loading = true
         let url = `${this.$baseUrl}/food`;
 
@@ -70,20 +82,44 @@
 
         this.$ajax(url, {
           params: params
-        }).then(function (res) {
+        }).then(res => {
           if (res.data.code == 0) {
-            _this.foodList = res.data.dataList
-            _this.total = res.data.count
+            res.data.dataList.forEach(o => o.visible = false)
+
+            this.foodList = res.data.dataList
+            this.total = res.data.count
           }
-        }).finally(function () {
-          _this.loading = false
+        }).finally(() => {
+          this.loading = false
         })
       },
+
+
 
       paginationChange(page) {
         this.getFood(page - 1)
       },
 
+      recommend(foodId){
+        const url = `${this.$baseUrl}/recommend`
+        const data = {
+          foodId,
+          priority: this.priority || 0
+        }
+
+        this.$ajax.post(url, data).then(res => {
+          if (res.data.code == 0) {
+            this.$alert('推荐成功', '提示', {
+              confirmButtonText: '确定'
+            });
+          } else {
+            this.$alert(res.data.message, '提示', {
+              confirmButtonText: '确定'
+            });
+          }
+        })
+
+      },
       edit(id) {
         this.$router.push({
           name: 'food-edit',
@@ -116,10 +152,10 @@
                 confirmButtonText: '确定'
               });
             }
-          }).finally(function () {
-            _this.loading = false
+          }).finally(() => {
+            this.loading = false
           })
-        }).catch(function (a) {
+        }).catch(function (err) {
 
         });
 

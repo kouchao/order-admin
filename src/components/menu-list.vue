@@ -31,6 +31,11 @@
             path: {
               name: 'food-add'
             }
+          }, {
+            name: '推荐菜品',
+            path: {
+              name: 'recommend'
+            }
           }]
         }, {
           name: '分类管理',
@@ -42,12 +47,12 @@
             path: 'category-add'
           }]
         }, {
-          name: '桌子管理',
+          name: '餐桌管理',
           child: [{
-            name: '桌子列表',
+            name: '餐桌列表',
             path: 'table-list'
           }, {
-            name: '添加桌子',
+            name: '添加餐桌',
             path: 'table-add'
           }]
         }]

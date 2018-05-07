@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <el-container>
-      <el-header>Header</el-header>
+      <el-header>点餐系统后台管理</el-header>
       <el-container>
         <el-aside width="200px">
           <menu-list></menu-list>
@@ -10,7 +10,7 @@
           <el-main>
             <router-view/>
           </el-main>
-          <el-footer>Footer</el-footer>
+          <el-footer>版权所有：寇超</el-footer>
         </el-container>
       </el-container>
     </el-container>
@@ -21,8 +21,24 @@
   import menuList from './components/menu-list'
   export default {
     name: 'app',
+    data(){
+      return {
+        id: ''
+      }
+    },
     components: {
       menuList
+    },
+    sockets:{
+      connect: function(){
+        this.id = this.$socket.id
+        this.$notify({
+          title: '提示',
+          message: '5号桌已取消呼叫',
+          duration: 0
+        });
+        console.log('$socket.id: ' + this.$socket.id)
+      }
     }
   }
 </script>
@@ -30,6 +46,9 @@
 <style>
   .el-header {
     background: #409eff;
+    line-height: 60px;
+    font-size: 20px;
+    color: #fff;
   }
 
   .el-aside {
@@ -42,6 +61,9 @@
 
   .el-footer {
     background: #409eff;
+    line-height: 60px;
+    text-align: center;
+    color: #fff;
   }
 
   #app {

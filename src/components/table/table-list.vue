@@ -16,6 +16,7 @@
           <el-button @click="getInfo(scope.row.id)" type="text" size="small">查看</el-button>
           <el-button @click="edit(scope.row.id)" type="text" size="small">编辑</el-button>
           <el-button @click="del(scope.row.id)" type="text" size="small">删除</el-button>
+          <el-button @click="getQrcode(scope.row.id)" type="text" size="small">生成二维码</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -27,18 +28,24 @@
         @current-change="paginationChange">
       </el-pagination>
     </div>
-
+    <qrcode
+      :value="qrcodeUrl"
+      v-if="qrcodeUrl"
+      :options="{ size: 170 }">
+    </qrcode>
 
   </div>
 </template>
 <script>
+  import Qrcode from 'vue-qrcode';
   export default {
     name: "table-list",
     data() {
       return {
         tableList: [],
         loading: false,
-        total: 0
+        total: 0,
+        qrcodeUrl: ''
       }
     },
     created() {
@@ -110,7 +117,13 @@
 
         });
 
+      },
+      getQrcode(id){
+        this.qrcodeUrl = id
       }
+    },
+    components: {
+      qrcode: Qrcode
     }
 
   }
