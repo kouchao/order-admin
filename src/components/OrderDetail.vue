@@ -25,7 +25,7 @@
         label="操作">
         <template slot-scope="scope">
           <el-button @click="del(scope.row.id)" type="text" size="small">删除</el-button>
-          <el-button v-if="scope.row.id < scope.row.completed_number" @click="addOne(scope.row)" type="text" size="small">+1</el-button>
+          <el-button v-if="scope.row.completed_number < scope.row.count" @click="addOne(scope.row)" type="text" size="small">+1</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -71,12 +71,12 @@
         })
       },
       del(id) {
-        this.$confirm('确定删除吗？', '提示').then(function (res) {
+        this.$confirm('确定删除吗？', '提示').then(res => {
 
           let url = api.orderDetail;
 
           let params = {
-            id: id
+            id
           }
           this.$ajax.delete(url, {
             params: params

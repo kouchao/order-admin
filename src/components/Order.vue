@@ -94,6 +94,7 @@
             this.$alert('支付成功', '提示', {
               confirmButtonText: '确定'
             });
+            this.getOrder()
           }
         }).catch(err => {
           this.$alert(res.data.message, '提示', {
