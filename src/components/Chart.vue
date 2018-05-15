@@ -2,7 +2,6 @@
 
   <div>
     <schart class="wrapper" :canvasId="canvasId" :type="type" :data="data" :options="options"></schart>
-
   </div>
 </template>
 

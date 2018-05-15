@@ -15,7 +15,7 @@ import 'font-awesome/css/font-awesome.css'
 
 const socketUrl = 'http://localhost:3000'
 Vue.prototype.$ajax = axios
-// Vue.prototype.$qiniu = qiniu
+Vue.prototype.$appUrl = 'http://localhost:8080/'
 
 Vue.prototype.$baseUrl = 'http://localhost:20001'
 

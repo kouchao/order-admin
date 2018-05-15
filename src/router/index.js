@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 
-import logo from '@/components/logo'
+import Logo from '@/components/Logo'
 
 
 import foodList from '@/components/food/food-list'
@@ -19,6 +19,9 @@ import tableList from '@/components/table/table-list'
 import Waiter from '@/components/Waiter'
 import Chart from '@/components/Chart'
 
+import Order from '@/components/Order'
+import OrderDetail from '@/components/OrderDetail'
+
 
 Vue.use(Router)
 
@@ -27,7 +30,7 @@ export default new Router({
     {
       path: '/',
       name: 'logo',
-      component: logo
+      component: Logo
     },
     {
       path: '/food-list',
@@ -88,6 +91,16 @@ export default new Router({
       path: '/chart',
       name: 'chart',
       component: Chart
+    },
+    {
+      path: '/order',
+      name: 'order',
+      component: Order
+    },
+    {
+      path: '/orderDetail/:id',
+      name: 'orderDetail',
+      component: OrderDetail
     }
 
 

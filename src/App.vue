@@ -18,7 +18,7 @@
 </template>
 
 <script>
-  import menuList from './components/menu-list'
+  import menuList from './components/MenuList'
   export default {
     name: 'app',
     data(){
@@ -84,4 +84,6 @@
     margin: 15px 0;
     text-align: right;
   }
+
+
 </style>

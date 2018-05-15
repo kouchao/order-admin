@@ -13,10 +13,9 @@
       <el-table-column
         label="操作">
         <template slot-scope="scope">
-          <el-button @click="getInfo(scope.row.id)" type="text" size="small">查看</el-button>
           <el-button @click="edit(scope.row.id)" type="text" size="small">编辑</el-button>
           <el-button @click="del(scope.row.id)" type="text" size="small">删除</el-button>
-          <el-button @click="getQrcode(scope.row.id)" type="text" size="small">生成二维码</el-button>
+          <el-button @click="getQrcode(scope.row)" type="text" size="small">生成二维码</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -28,16 +27,26 @@
         @current-change="paginationChange">
       </el-pagination>
     </div>
-    <qrcode
-      :value="qrcodeUrl"
-      v-if="qrcodeUrl"
-      :options="{ size: 170 }">
-    </qrcode>
+    <el-dialog title="二维码" :visible.sync="outerVisible" center>
+      <div style="text-align: center">
+        <qrcode
+          :value="$appUrl + '?id=' + qrcodeUrl"
+          v-if="qrcodeUrl"
+          :options="{ size: 170 }">
+        </qrcode>
+      </div>
 
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="outerVisible = false">取 消</el-button>
+        <el-button type="primary" @click="saveImg">下载</el-button>
+        <el-button type="primary" @click="print">打印</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 <script>
-  import Qrcode from 'vue-qrcode';
+  import Qrcode from '@xkeshi/vue-qrcode'
+
   export default {
     name: "table-list",
     data() {
@@ -45,7 +54,9 @@
         tableList: [],
         loading: false,
         total: 0,
-        qrcodeUrl: ''
+        qrcodeUrl: '',
+        outerVisible: false,
+        imgName: ''
       }
     },
     created() {
@@ -118,17 +129,41 @@
         });
 
       },
-      getQrcode(id){
-        this.qrcodeUrl = id
+      getQrcode(row) {
+        this.qrcodeUrl = row.id
+        this.outerVisible = true
+        this.imgName = row.name + '.png'
+      },
+      saveImg() {
+        const myCanvas = document.querySelector('canvas');
+        const image = myCanvas.toDataURL('image/png').replace('image/png', 'image/octet-stream');
+        const a = document.createElement('a');
+        a.href = image;
+        a.download = this.imgName;
+        a.click();
+      },
+      print() {
+        const myCanvas = document.querySelector('canvas');
+        const image = myCanvas.toDataURL('image/png').replace('image/png', 'image/octet-stream');
+        const newWindow = window.open('_blank');
+        newWindow.document.write('<img src="' + image + '"/>');
+        newWindow.document.close();
+        setTimeout(function () {
+          newWindow.print();
+          newWindow.close()
+        }, 0)
+
       }
     },
     components: {
-      qrcode: Qrcode
+      Qrcode
     }
 
   }
 </script>
 
 <style scoped>
-
+  canvas {
+    margin: auto;
+  }
 </style>

@@ -90,6 +90,7 @@
             _this.form = res.data.data
             _this.imageUrl = 'http://yun.kouchao.top/毕业设计/' + _this.form.image
           }
+
         }).finally(function () {
           _this.loading = false
         })
