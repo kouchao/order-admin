@@ -34,10 +34,19 @@
         this.id = this.$socket.id
         this.$notify({
           title: '提示',
-          message: '5号桌已取消呼叫',
-          duration: 0
+          message: '已连接服务器',
+          duration: 1000
         });
         console.log('$socket.id: ' + this.$socket.id)
+      },
+      historyChange: function(val){
+        if(val.user.msg == '呼叫服务员' || val.user.msg == '提交了菜单'){
+          this.$notify({
+            title: '提示',
+            message: val.user.name + ': ' + val.user.msg,
+            duration: 0
+          });
+        }
       }
     }
   }

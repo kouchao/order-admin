@@ -70,10 +70,19 @@
             route: {
               name: 'order'
             }
-          }, {
-            name: '订单分析',
+          },
+          // { name: '订单分析',
+          //   route: {
+          //     name: 'chart'
+          //   }
+          // }
+          ]
+        }, {
+          name: '用户服务',
+          child: [{
+            name: '用户呼叫',
             route: {
-              name: 'chart'
+              name: 'waiter'
             }
           }]
         }]
