@@ -43,7 +43,7 @@
     }
   }
   export default {
-    name: "food-list",
+    name: "FoodAdd",
     data() {
       return {
         form: {

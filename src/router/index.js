@@ -5,16 +5,16 @@ import Router from 'vue-router'
 import Logo from '@/components/Logo'
 
 
-import foodList from '@/components/food/food-list'
-import foodAdd from '@/components/food/food-add'
-import recommend from '@/components/food/Recommend'
+import FoodList from '@/components/FoodList'
+import FoodAdd from '@/components/FoodAdd'
+import Recommend from '@/components/Recommend'
 
 
-import categoryAdd from '@/components/category/category-add'
-import categoryList from '@/components/category/category-list'
+import CategoryAdd from '@/components/CategoryAdd'
+import CategoryList from '@/components/CategoryList'
 
-import tableAdd from '@/components/table/table-add'
-import tableList from '@/components/table/table-list'
+import TableAdd from '@/components/TableAdd'
+import TableList from '@/components/TableList'
 
 import Waiter from '@/components/Waiter'
 import Chart from '@/components/Chart'
@@ -33,54 +33,54 @@ export default new Router({
       component: Logo
     },
     {
-      path: '/food-list',
-      name: 'food-list',
-      component: foodList
+      path: '/foodList',
+      name: 'foodList',
+      component: FoodList
     },
     {
-      path: '/food-add',
-      name: 'food-add',
-      component: foodAdd
+      path: '/foodAdd',
+      name: 'foodAdd',
+      component: FoodAdd
     },
     {
       path: '/food-edit/:id',
       name: 'food-edit',
-      component: foodAdd
+      component: FoodAdd
     },
     {
       path: '/recommend',
       name: 'recommend',
-      component: recommend
+      component: Recommend
     },
     {
-      path: '/category-list',
-      name: 'category-list',
-      component: categoryList
+      path: '/categoryList',
+      name: 'categoryList',
+      component: CategoryList
     },
     {
-      path: '/category-add',
-      name: 'category-add',
-      component: categoryAdd
+      path: '/categoryAdd',
+      name: 'categoryAdd',
+      component: CategoryAdd
     },
     {
       path: '/category-edit/:id',
       name: 'category-edit',
-      component: categoryAdd
+      component: CategoryAdd
     },
     {
-      path: '/table-list',
-      name: 'table-list',
-      component: tableList
+      path: '/tableList',
+      name: 'tableList',
+      component: TableList
     },
     {
-      path: '/table-add',
-      name: 'table-add',
-      component: tableAdd
+      path: '/tableAdd',
+      name: 'tableAdd',
+      component: TableAdd
     },
     {
       path: '/table-edit/:id',
       name: 'table-edit',
-      component: tableAdd
+      component: TableAdd
     },
     {
       path: '/waiter',

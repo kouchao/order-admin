@@ -24,12 +24,12 @@
           child: [{
             name: '菜品列表',
             route: {
-              name: 'food-list'
+              name: 'foodList'
             }
           }, {
             name: '添加菜品',
             route: {
-              name: 'food-add'
+              name: 'foodAdd'
             }
           }, {
             name: '推荐菜品',
@@ -42,12 +42,12 @@
           child: [{
             name: '分类列表',
             route: {
-              name: 'category-list'
+              name: 'categoryList'
             }
           }, {
             name: '添加分类',
             route: {
-              name: 'category-add'
+              name: 'categoryAdd'
             }
           }]
         }, {
@@ -55,12 +55,12 @@
           child: [{
             name: '餐桌列表',
             route: {
-              name: 'table-list'
+              name: 'tableList'
             }
           }, {
             name: '添加餐桌',
             route: {
-              name: 'table-add'
+              name: 'tableAdd'
             }
           }]
         }, {

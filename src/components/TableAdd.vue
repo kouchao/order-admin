@@ -13,7 +13,7 @@
 </template>
 <script>
   export default {
-    name: "ta-list",
+    name: "TableAdd",
     data() {
       return {
         form: {

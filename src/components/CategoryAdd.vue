@@ -13,7 +13,7 @@
 </template>
 <script>
   export default {
-    name: "category-list",
+    name: "CategoryAdd",
     data() {
       return {
         form: {

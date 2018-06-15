@@ -26,7 +26,6 @@
       <el-table-column
         label="操作">
         <template slot-scope="scope">
-          <el-button @click="getInfo(scope.row.id)" type="text" size="small">查看</el-button>
           <el-popover
             class="el-button el-button--text el-button--small"
             placement="top"
@@ -58,7 +57,7 @@
 </template>
 <script>
   export default {
-    name: "food-list",
+    name: "FoodList",
     data() {
       return {
         foodList: [],
@@ -148,9 +147,11 @@
               });
               _this.getFood(0)
             } else {
-              _this.$alert(res.data.message, '提示', {
+              _this.$alert('请取消推荐后删除', '提示', {
                 confirmButtonText: '确定'
               });
+              _this.loading = false
+
             }
           }).finally(() => {
             this.loading = false

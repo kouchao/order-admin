@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <el-container>
-      <el-header>点餐系统后台管理</el-header>
+      <el-header><router-link to="/" tag="div">点餐系统后台管理</router-link></el-header>
       <el-container>
         <el-aside width="200px">
           <menu-list></menu-list>
@@ -35,7 +35,7 @@
         this.$notify({
           title: '提示',
           message: '已连接服务器',
-          duration: 1000
+          duration: 2000
         });
         console.log('$socket.id: ' + this.$socket.id)
       },

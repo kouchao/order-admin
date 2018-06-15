@@ -2,7 +2,7 @@
   <div>
     <el-table
       v-loading="loading"
-      :data="tableList"
+      :data="categoryList"
       border
       style="width: 100%">
       <el-table-column
@@ -15,7 +15,6 @@
         <template slot-scope="scope">
           <el-button @click="edit(scope.row.id)" type="text" size="small">编辑</el-button>
           <el-button @click="del(scope.row.id)" type="text" size="small">删除</el-button>
-          <el-button @click="getQrcode(scope.row)" type="text" size="small">生成二维码</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -27,46 +26,28 @@
         @current-change="paginationChange">
       </el-pagination>
     </div>
-    <el-dialog title="二维码" :visible.sync="outerVisible" center>
-      <div style="text-align: center">
-        <qrcode
-          :value="$appUrl + '?id=' + qrcodeUrl"
-          v-if="qrcodeUrl"
-          :options="{ size: 170 }">
-        </qrcode>
-      </div>
 
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="outerVisible = false">取 消</el-button>
-        <el-button type="primary" @click="saveImg">下载</el-button>
-        <el-button type="primary" @click="print">打印</el-button>
-      </div>
-    </el-dialog>
+
   </div>
 </template>
 <script>
-  import Qrcode from '@xkeshi/vue-qrcode'
-
   export default {
-    name: "table-list",
+    name: "CategoryAdd",
     data() {
       return {
-        tableList: [],
+        categoryList: [],
         loading: false,
-        total: 0,
-        qrcodeUrl: '',
-        outerVisible: false,
-        imgName: ''
+        total: 0
       }
     },
     created() {
-      this.getTable(0)
+      this.getCategory(0)
     },
     methods: {
-      getTable(page) {
+      getCategory(page) {
         var _this = this;
         this.loading = true
-        let url = `${this.$baseUrl}/table`;
+        let url = `${this.$baseUrl}/category`;
 
         let params = {
           page: page,
@@ -77,7 +58,7 @@
           params: params
         }).then(function (res) {
           if (res.data.code == 0) {
-            _this.tableList = res.data.dataList
+            _this.categoryList = res.data.dataList
             _this.total = res.data.count
           }
         }).finally(function () {
@@ -86,12 +67,12 @@
       },
 
       paginationChange(page) {
-        this.getTable(page - 1)
+        this.getCategory(page - 1)
       },
 
       edit(id) {
         this.$router.push({
-          name: 'table-edit',
+          name: 'category-edit',
           params: {
             id: id
           }
@@ -103,7 +84,7 @@
         this.$confirm('确定删除吗？', '提示').then(function (res) {
 
           _this.loading = true
-          let url = `${_this.$baseUrl}/table`;
+          let url = `${_this.$baseUrl}/category`;
 
           let params = {
             id: id
@@ -115,7 +96,7 @@
               _this.$alert('删除成功', '提示', {
                 confirmButtonText: '确定'
               });
-              _this.getTable(0)
+              _this.getCategory(0)
             } else {
               _this.$alert(res.data.message, '提示', {
                 confirmButtonText: '确定'
@@ -128,42 +109,12 @@
 
         });
 
-      },
-      getQrcode(row) {
-        this.qrcodeUrl = row.id
-        this.outerVisible = true
-        this.imgName = row.name + '.png'
-      },
-      saveImg() {
-        const myCanvas = document.querySelector('canvas');
-        const image = myCanvas.toDataURL('image/png').replace('image/png', 'image/octet-stream');
-        const a = document.createElement('a');
-        a.href = image;
-        a.download = this.imgName;
-        a.click();
-      },
-      print() {
-        const myCanvas = document.querySelector('canvas');
-        const image = myCanvas.toDataURL('image/png').replace('image/png', 'image/octet-stream');
-        const newWindow = window.open('_blank');
-        newWindow.document.write('<img src="' + image + '"/>');
-        newWindow.document.close();
-        setTimeout(function () {
-          newWindow.print();
-          newWindow.close()
-        }, 0)
-
       }
-    },
-    components: {
-      Qrcode
     }
 
   }
 </script>
 
 <style scoped>
-  canvas {
-    margin: auto;
-  }
+
 </style>
